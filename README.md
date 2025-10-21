@@ -63,7 +63,7 @@
 | 상황 | 커밋 메세지 |
 | README작성 | docs: ~ |
 | 기능추가 | feat: ~ 
-| 코드개선 | retactor: ~ | F
+| 코드개선 | retactor: ~ | 
 
 
 ## 코드 실행 방법
