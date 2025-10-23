@@ -2,6 +2,7 @@ package racingcar;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class Application {
         // } // --> List에 잘 들어갔는지 디버깅확인용 코드입니다.5
         int attemp = getValue();
 
-        gamestart(carNameMap, attemp);
+        gamestart(carNameMap, attemp);      
         
     }
     public static LinkedHashMap<String,Integer> getCarNames(){
@@ -44,17 +45,17 @@ public class Application {
         if(RandNum >= 4) return 1;
         else return -1;
     }
+    public static void moveCar(LinkedHashMap<String, Integer> carPoint, String name){
+        if(getRandomNumber()==1){ carPoint.put(name,carPoint.getOrDefault(name, 0)+1); }
+                 System.out.println(name+" : "+"-".repeat(carPoint.get(name)));
+    }
 
     public static void gamestart(LinkedHashMap<String, Integer> carPoint, int getAttempt){
         for(int i=0; i<getAttempt; i++){
             for(String name : carPoint.keySet()){
-                 if(getRandomNumber()==1){ carPoint.put(name,carPoint.getOrDefault(name, 0)+1); }
-                 System.out.println(name+" : "+"-".repeat(carPoint.get(name)));
+               moveCar(carPoint,name);
             }
             System.out.println();
         }
-        
     }
-    
-    
 }
