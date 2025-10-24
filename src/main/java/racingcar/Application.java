@@ -1,11 +1,14 @@
 package racingcar;
 import camp.nextstep.edu.missionutils.Randoms;
 
+import static org.assertj.core.api.Assertions.entry;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,7 +24,8 @@ public class Application {
         // } // --> List에 잘 들어갔는지 디버깅확인용 코드입니다.5
         int attemp = getValue();
 
-        gamestart(carNameMap, attemp);      
+        gamestart(carNameMap, attemp);  
+        getWinner(carNameMap);    
         
     }
     public static LinkedHashMap<String,Integer> getCarNames(){
@@ -57,5 +61,10 @@ public class Application {
             }
             System.out.println();
         }
+    }
+    public static void getWinner(LinkedHashMap<String, Integer> carName){
+        int maxValue = Collections.max(carName.values());
+        List<String> winner = carName.entrySet().stream().filter(entry -> entry.getValue() == maxValue).map(Map.Entry::getKey).collect(Collectors.toList());
+        System.out.print("최종 우승자 : "+String.join(",",winner));
     }
 }
