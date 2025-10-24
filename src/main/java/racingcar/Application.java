@@ -3,6 +3,7 @@ import camp.nextstep.edu.missionutils.Randoms;
 
 import static org.assertj.core.api.Assertions.entry;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -32,6 +33,10 @@ public class Application {
         System.out.println("경주할 자동차 이름을 입력하세요(이름은 쉼표(,) 기준으로 구분)");
         String car = Console.readLine();
         if(car == null || car.trim().isEmpty()) throw new IllegalArgumentException("입력값이 없습니다.");
+        String[] nm = car.split(",");
+        for(String n : nm){
+            if(n.length() > 5) throw new IllegalArgumentException("차명은 5글자 이하로만 입력하시오");
+        }
         return Arrays.stream(car.split(",")).map(String::trim).collect(Collectors.toMap(name -> name, name -> 0, (v1,v2) -> v1, LinkedHashMap::new));
         // stream의 과정 1. stream 생성 2. 가공 3. 결과
     }
@@ -64,7 +69,11 @@ public class Application {
     }
     public static void getWinner(LinkedHashMap<String, Integer> carName){
         int maxValue = Collections.max(carName.values());
-        List<String> winner = carName.entrySet().stream().filter(entry -> entry.getValue() == maxValue).map(Map.Entry::getKey).collect(Collectors.toList());
-        System.out.print("최종 우승자 : "+String.join(",",winner));
+        List<String> winner = new ArrayList<>();
+        for(Map.Entry<String,Integer> e : carName.entrySet()){
+            if(e.getValue() == maxValue){winner.add(e.getKey());}
+        }
+        // List<String> winner = carName.entrySet().stream().filter(entry -> entry.getValue() == maxValue).map(Map.Entry::getKey).collect(Collectors.toList());
+        System.out.print("최종 우승자 : "+String.join(", ",winner)+ "\n");
     }
 }
